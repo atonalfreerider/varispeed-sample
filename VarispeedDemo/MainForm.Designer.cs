@@ -5,7 +5,7 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             this.buttonPlay = new System.Windows.Forms.Button();
@@ -171,17 +171,17 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonPlay;
-        private System.Windows.Forms.Button buttonStop;
-        private System.Windows.Forms.TrackBar trackBarPlaybackRate;
-        private System.Windows.Forms.Button buttonLoad;
-        private System.Windows.Forms.ComboBox comboBoxModes;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TrackBar trackBarPlaybackPosition;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label labelPlaybackSpeed;
-        private System.Windows.Forms.Label labelPosition;
+        System.Windows.Forms.Button buttonPlay;
+        System.Windows.Forms.Button buttonStop;
+        System.Windows.Forms.TrackBar trackBarPlaybackRate;
+        System.Windows.Forms.Button buttonLoad;
+        System.Windows.Forms.ComboBox comboBoxModes;
+        System.Windows.Forms.Label label1;
+        System.Windows.Forms.TrackBar trackBarPlaybackPosition;
+        System.Windows.Forms.Label label2;
+        System.Windows.Forms.Timer timer1;
+        System.Windows.Forms.Label labelPlaybackSpeed;
+        System.Windows.Forms.Label labelPosition;
     }
 }
 
