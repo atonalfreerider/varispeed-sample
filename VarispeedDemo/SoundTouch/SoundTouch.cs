@@ -6,7 +6,7 @@ namespace VarispeedDemo.SoundTouch;
 class SoundTouch : IDisposable
 {
     IntPtr handle;
-    string versionString;
+    string? versionString;
     readonly bool is64Bit;
     public SoundTouch()
     {
@@ -20,7 +20,7 @@ class SoundTouch : IDisposable
     {
         get
         {
-            if (versionString == null)
+            if (string.IsNullOrEmpty(versionString))
             {
                 var s = new StringBuilder(100);
                 if (is64Bit)

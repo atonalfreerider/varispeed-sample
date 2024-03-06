@@ -5,10 +5,9 @@ namespace VarispeedDemo;
 
 public partial class MainForm : Form
 {
-    IWavePlayer wavePlayer;
-    VarispeedSampleProvider speedControl;
-    AudioFileReader reader;
-
+    WaveOutEvent? wavePlayer;
+    VarispeedSampleProvider? speedControl;
+    AudioFileReader? reader;
 
     public MainForm()
     {
@@ -25,14 +24,14 @@ public partial class MainForm : Form
             
     }
 
-    void OnMainFormClosing(object sender, System.ComponentModel.CancelEventArgs e)
+    void OnMainFormClosing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
         wavePlayer?.Dispose();
         speedControl?.Dispose();
         reader?.Dispose();
     }
 
-    void OnButtonPlayClick(object sender, EventArgs e)
+    void OnButtonPlayClick(object? sender, EventArgs e)
     {
         if (wavePlayer == null)
         {
@@ -51,7 +50,7 @@ public partial class MainForm : Form
         EnableControls(true);
     }
 
-    void WavePlayerOnPlaybackStopped(object sender, StoppedEventArgs stoppedEventArgs)
+    void WavePlayerOnPlaybackStopped(object? sender, StoppedEventArgs stoppedEventArgs)
     {
         if (stoppedEventArgs.Exception != null)
         {
@@ -68,25 +67,25 @@ public partial class MainForm : Form
         comboBoxModes.Enabled = !isPlaying;
     }
 
-    string SelectFile()
+    static string SelectFile()
     {
         var ofd = new OpenFileDialog();
         ofd.Filter = "MP3 Files|*.mp3";
-        return ofd.ShowDialog() == DialogResult.OK ? ofd.FileName : null;
+        return (ofd.ShowDialog() == DialogResult.OK ? ofd.FileName : null) ?? string.Empty;
     }
 
-    void OnButtonStopClick(object sender, EventArgs e)
+    void OnButtonStopClick(object? sender, EventArgs e)
     {
         wavePlayer?.Stop();
     }
 
-    void OnTrackBarPlaybackRateScroll(object sender, EventArgs e)
+    void OnTrackBarPlaybackRateScroll(object? sender, EventArgs e)
     {
         speedControl.PlaybackRate = 0.5f + trackBarPlaybackRate.Value*0.1f;
         labelPlaybackSpeed.Text = $"x{speedControl.PlaybackRate:F2}";
     }
 
-    void OnButtonLoadClick(object sender, EventArgs e)
+    void OnButtonLoadClick(object? sender, EventArgs e)
     {
         LoadFile();
     }
@@ -99,7 +98,7 @@ public partial class MainForm : Form
         speedControl = null;
 
         string? file = SelectFile();
-        if (file == null) return;
+        if (string.IsNullOrEmpty(file)) return;
         reader = new AudioFileReader(file);
         DisplayPosition();
         trackBarPlaybackPosition.Value = 0;
@@ -108,7 +107,7 @@ public partial class MainForm : Form
         speedControl = new VarispeedSampleProvider(reader, 100, new SoundTouchProfile(useTempo, false));
     }
 
-    void timer1_Tick(object sender, EventArgs e)
+    void timer1_Tick(object? sender, EventArgs e)
     {
         if (reader != null)
         {
@@ -119,19 +118,19 @@ public partial class MainForm : Form
 
     void DisplayPosition()
     {
-        labelPosition.Text = reader.CurrentTime.ToString("mm\\:ss");
+        labelPosition.Text = reader?.CurrentTime.ToString("mm\\:ss");
     }
 
-    void trackBarPlaybackPosition_Scroll(object sender, EventArgs e)
+    void trackBarPlaybackPosition_Scroll(object? sender, EventArgs e)
     {
         if (reader != null)
         {
             reader.CurrentTime = TimeSpan.FromSeconds(trackBarPlaybackPosition.Value);
-            speedControl.Reposition();
+            speedControl?.Reposition();
         }
     }
 
-    void comboBoxModes_SelectedIndexChanged(object sender, EventArgs e)
+    void comboBoxModes_SelectedIndexChanged(object? sender, EventArgs e)
     {
         if (speedControl != null)
         {
